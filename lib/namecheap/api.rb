@@ -6,9 +6,9 @@ module Namecheap
     PRODUCTION = 'https://api.namecheap.com/xml.response'
     ENVIRONMENT = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : (ENV["RACK_ENV"] || 'development')
     ENDPOINT = (ENVIRONMENT == 'production' ? PRODUCTION : SANDBOX)
-
+    
     def get(command, options = {})
-      request 'get', command, options
+      request 'get', command, options.merge!({timeout: 240})
     end
 
     def post(command, options = {})
